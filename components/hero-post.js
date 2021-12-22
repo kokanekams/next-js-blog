@@ -2,6 +2,8 @@ import Avatar from '../components/avatar'
 import DateFormatter from '../components/date-formatter'
 import CoverImage from '../components/cover-image'
 import Link from 'next/link'
+import { useEffect } from 'react';
+import { useCookies } from 'react-cookie';
 
 export default function HeroPost({
   title,
@@ -11,6 +13,13 @@ export default function HeroPost({
   author,
   slug,
 }) {
+
+  const [cookies, setCookie] = useCookies(['test-cookie']);
+
+  useEffect(() => {
+    setCookie('test-cookie', 'cookie-value', { path: '/' });
+  }, [])
+
   return (
     <section>
       <div className="mb-8 md:mb-16">

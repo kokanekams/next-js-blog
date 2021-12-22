@@ -1,3 +1,144 @@
-@tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.consent-box {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    background-image: linear-gradient(62deg, #fbab7E 0%, #f7ce68 100%);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 2rem;
+  }
+  
+  .categories {
+    height: 400px;
+    padding-right: 20px;
+    overflow: scroll;
+  }
+  
+  .cookie-box {
+    position: fixed;
+    left: 50%;
+    margin-left: -200px;
+    top: 50%;
+    margin-top: -200px;
+    padding: 1rem 2rem;
+    max-width: 400px;
+    background: #fff;
+    z-index: 100;
+    box-shadow: #787878 0px 4px 8px;
+    transition: all .75s cubic-bezier(.19,1,.22,1);
+  }
+  
+  .cookie-button {
+    display: inline-block;
+    cursor: pointer;
+    padding: 0.65rem 0.85rem;
+    margin-left: 0.45rem;
+    color: #fff;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    background-image: linear-gradient(62deg, #fbab7E 0%, #f7ce68 100%);
+  }
+  
+  .cancel-button {
+    background-image: linear-gradient(62deg, #989898 0%, #989898 100%);
+  }
+  
+  /* The CSS for the toggle to work  */
+  /* The switch - the box around the slider */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  
+  /* This is to custom style the scrollbar */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
