@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 const template = {
     main: {
       header: 'Privacy Settings',
@@ -5,21 +7,25 @@ const template = {
     },
     categories: [
       {
+        id: 'maraketing',
         header: 'Marketing',
         content: 'Toggling this setting will enable the marketing cookies to be set on your browser which can be used for marketing purposes.',
         checked: false
       },
       {
+        id: 'targeting',
         header: 'Targeting',
         content: 'Toggling this setting will enable the targeting cookies to be set on your browser which can be used for targeting purposes.',
         checked: false
       },
       {
+        id: 'advertisement',
         header: 'Advertisement',
         content: 'Toggling this setting will enable the advertisement cookies to be set on your browser which can be used for advertisement purposes.',
         checked: false
       },
       {
+        id: 'bareminimum',
         header: 'Bare minimum',
         content: 'Toggling this setting will enable the bare minimum cookies to be set which will allow the site to function without any hassles.',
         checked: false
@@ -27,42 +33,50 @@ const template = {
     ]
   }
 
-function CategoryElement({category}) {
+function CategoryElement({category, checked, onTrackerChanged}) {
     return (
         <>
-        <div class="heading row">
+        <div className="heading row">
             <h3>{category.header}</h3>
-            <Toggle />
+            <Toggle checked={checked} onTrackerChanged={onTrackerChanged} id={category.id} />
         </div>
-        <div class="content">
+        <div className="content">
             {category.content}
         </div>
         </>
     )
 }
   
-export default function CookieModal() {
+export default function CookieModal({cookieSettings, onCookieSet}) {
     const policy = template.main;
     const categories = template.categories;
 
+    const [trackers, setTrackers] = useState(cookieSettings);
+
+    function onTrackerChanged(trackerId) {
+        const currentValue = trackers[trackerId];
+
+        setTrackers({...trackers, ...{[trackerId]: !currentValue}});
+    }
+
     return (
-        <div id="js-cookie-box" class="cookie-box cookie-box--hide">
-        <div class="heading row">
+        <div id="js-cookie-box" className="cookie-box cookie-box--hide">
+        <div className="heading row">
             <h2>{policy.header}</h2>
         </div>
-        <div class="content">
+        <div className="content">
             {policy.content}
         </div>
         <br />
         <hr />
-        <div class="categories">
+        <div className="categories">
             {categories.map((category) => 
-            <CategoryElement category={category} />         
+                <CategoryElement key={category.id} category={category} checked={trackers[category.id]} onTrackerChanged={onTrackerChanged}/>         
             )}
         </div>
-        <div class="footer">
-            <span id="js-cookie-button" class="cookie-button">Accept</span>
-            <span id="js-cookie-button" class="cookie-button cancel-button">Cancel</span>
+        <div className="footer">
+            <span id="js-cookie-button" className="cookie-button" onClick={() => onCookieSet(trackers)}>Accept</span>
+            <span id="js-cookie-button" className="cookie-button cancel-button" onClick={() => onCookieSet()}>Cancel</span>
         </div>
         </div>
     )
@@ -70,12 +84,12 @@ export default function CookieModal() {
   
 // -------------------------------------------------------------------------------
 // This is the toggle switch which we are creating custom
-function Toggle() {
+function Toggle({checked, onTrackerChanged, id}) {
     return (
         <>
-        <label class="switch">
-            <input type="checkbox" />
-            <span class="slider round"></span>
+        <label className="switch">
+            <input type="checkbox" checked={checked} onChange={() => onTrackerChanged(id)}/>
+            <span className="slider round"></span>
         </label>
         </>
     )
